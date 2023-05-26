@@ -50,3 +50,16 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# bat
+*.bat
+
+# makefiles
+Makefile
+*.make
+
+# vendors
+vendors/*
+
+# vs code
+.vscode/*

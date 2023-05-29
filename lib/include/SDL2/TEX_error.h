@@ -9,7 +9,7 @@
 #endif
 
 
-#define TEX_GetError SDL_GetError()
+#define TEX_GetError SDL_GetError
 #define TEX_SetError(msg) SDL_SetError(msg)
 
 

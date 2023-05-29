@@ -16,6 +16,7 @@ void TEX_Quit();
 
 
 #include "TEX_error.h"
+#include "TEX_fontManager.h"
 
 
 #endif

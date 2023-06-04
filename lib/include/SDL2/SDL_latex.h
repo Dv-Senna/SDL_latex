@@ -10,9 +10,6 @@
 	extern "C" {
 #endif
 
-int TEX_Init();
-void TEX_Quit();
-
 
 #ifdef __cplusplus
 	}

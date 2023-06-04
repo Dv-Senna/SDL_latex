@@ -9,7 +9,6 @@
 void handleError()
 {
 	printf("ERROR : %s\n", TEX_GetError());
-	TEX_Quit();
 	IMG_Quit();
 	SDL_Quit();
 	exit(1);
@@ -22,9 +21,6 @@ int main(int argc, char *argv[])
 		handleError();
 
 	if (IMG_Init(IMG_INIT_PNG) == 0)
-		handleError();
-
-	if (TEX_Init() != 0)
 		handleError();
 
 	
@@ -64,7 +60,6 @@ int main(int argc, char *argv[])
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
-	TEX_Quit();
 	IMG_Quit();
 	SDL_Quit();
 

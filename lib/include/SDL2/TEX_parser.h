@@ -3,9 +3,6 @@
 
 #include <SDL2/SDL.h>
 
-
-#define TEX_MAX_LATEX_FILE_SIZE 1024
-
 #ifdef __cplusplus
 	extern "C" {
 #endif

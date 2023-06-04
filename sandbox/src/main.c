@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 
-	SDL_Surface *latexSurface = TEX_ParseLaTeX("E = mc^2", SDL_TRUE);
+	SDL_Surface *latexSurface = TEX_ParseLaTeX("E = m_0\\gamma c^2", SDL_TRUE);
 	if (latexSurface == NULL)
 		handleError();
 	SDL_Rect latexRect = {10, 20, latexSurface->w, latexSurface->h};

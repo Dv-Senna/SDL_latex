@@ -19,7 +19,7 @@ project "lib"
 		"lib/include/SDL2",
 		"vendors/SDL2/include",
 		"vendors/SDL2/include/SDL2",
-		"vendors/SDL2_ttf/include"
+		"vendors/SDL2_image/include",
 	}
 
 	filter "configurations:debug"
@@ -48,20 +48,20 @@ project "Sandbox"
 		"lib/include",
 		"vendors/SDL2/include",
 		"vendors/SDL2/include/SDL2",
-		"vendors/SDL2_ttf/include",
+		"vendors/SDL2_image/include",
 	}
 
 	libdirs {
 		"lib/bin",
 		"vendors/SDL2/lib",
-		"vendors/SDL2_ttf/lib",
+		"vendors/SDL2_image/lib",
 	}
 
 	links {
 		"SDL2_latex",
-		"SDL2_ttf",
+		"SDL2_image",
 		"SDL2",
-		"SDL2main",
+		"SDL2main"
 	}
 
 

@@ -63,3 +63,12 @@ vendors/*
 
 # vs code
 .vscode/*
+
+# latex
+*.aux
+*.log
+*.pdf
+*.tex
+*.png
+*.fdb_latexmk
+*.fls

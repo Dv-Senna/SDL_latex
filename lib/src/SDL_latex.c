@@ -5,8 +5,6 @@
 
 int TEX_Init()
 {
-	
-
 	return 0;
 }
 
@@ -16,5 +14,3 @@ void TEX_Quit()
 {
 
 }
-
-

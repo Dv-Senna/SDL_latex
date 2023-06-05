@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 
 #include <SDL2/SDL_image.h>
 
@@ -11,10 +12,13 @@
 
 SDL_Surface *parseWithOptimization(const char *latex);
 SDL_Surface *parseWithoutOptimization(const char *latex, const char *filename);
+void createFolderIfNotExists(const char *folder);
 
 
 SDL_Surface *TEX_ParseLaTeX(const char *latex, SDL_bool optimize)
 {
+	createFolderIfNotExists(TEX_DEFAULT_GENERATION_FOLDER);
+
 	if (optimize)
 		return parseWithOptimization(latex);
 	
@@ -33,9 +37,18 @@ SDL_bool doesFileExists(const char *path)
 }
 
 
+void createFolderIfNotExists(const char *folder)
+{
+	struct stat st = {0};
+
+	if (stat(folder, &st) == -1)
+		mkdir(folder);
+}
+
+
 SDL_Surface *parseWithOptimization(const char *latex)
 {
-	char hash[16];
+	char hash[17];
 	TEX_Hash(latex, hash);
 
 	char imgFilePath[TEX_MAX_LATEX_FILE_PATH_SIZE];

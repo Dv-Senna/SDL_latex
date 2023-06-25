@@ -12,23 +12,23 @@ void TEX_Hash(const char *string, char *output)
 	newString[lengthOfString] = 0;
 
 	for (int i = 0; i < lengthOfString; i++)
-		newString[i] = string[i] % 26 + 65;
+		newString[i] = string[i] % 26 + 'A';
 
 	while (1)
 	{
 		if (lengthOfString == 16)
 		{
 			output[16] = 0;
-			free(newString);
 			for (int i = 0; i < 16; i++)
 				output[i] = newString[i];
+			free(newString);
 			return;
 		}
 		
 		if (lengthOfString > 16)
 		{
 			for (int i = 0; i < lengthOfString; i += 2)
-				newString[i] = (newString[i] + newString[i + 1]) % 26 + 65;
+				newString[i] = (newString[i] + newString[i + 1]) % 26 + 'A';
 
 			lengthOfString /= 2;
 		}
@@ -36,11 +36,11 @@ void TEX_Hash(const char *string, char *output)
 		else
 		{
 			output[16] = 0;
-			free(newString);
 			for (int i = 0; i < lengthOfString; i++)
 				output[i] = newString[i];
 			for (int i = lengthOfString; i < 16; i++)
 				output[i] = 'a';
+			free(newString);
 			return;
 		}
 	}

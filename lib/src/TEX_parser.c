@@ -42,7 +42,7 @@ void createFolderIfNotExists(const char *folder)
 	struct stat st = {0};
 
 	if (stat(folder, &st) == -1)
-		mkdir(folder);
+		mkdir(folder, S_IRUSR | S_IWUSR | S_IXUSR);
 }
 
 
@@ -50,6 +50,7 @@ SDL_Surface *parseWithOptimization(const char *latex)
 {
 	char hash[17];
 	TEX_Hash(latex, hash);
+
 
 	char imgFilePath[TEX_MAX_LATEX_FILE_PATH_SIZE];
 	int res = snprintf(imgFilePath, TEX_MAX_LATEX_FILE_PATH_SIZE, "%s/%s.png", TEX_DEFAULT_GENERATION_FOLDER, hash);

@@ -51,6 +51,7 @@ SDL_Surface *parseWithOptimization(const char *latex, int size)
 	char hash[17];
 	TEX_Hash(latex, hash, size);
 
+
 	char imgFilePath[TEX_MAX_LATEX_FILE_PATH_SIZE];
 	int res = snprintf(imgFilePath, TEX_MAX_LATEX_FILE_PATH_SIZE, "%s/%s.png", TEX_DEFAULT_GENERATION_FOLDER, hash);
 	if (res == 0 || res > TEX_MAX_LATEX_FILE_SIZE)

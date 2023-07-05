@@ -10,19 +10,19 @@
 #include "TEX_hash.h"
 
 
-SDL_Surface *parseWithOptimization(const char *latex);
-SDL_Surface *parseWithoutOptimization(const char *latex, const char *filename);
+SDL_Surface *parseWithOptimization(const char *latex, int size);
+SDL_Surface *parseWithoutOptimization(const char *latex, const char *filename, int size);
 void createFolderIfNotExists(const char *folder);
 
 
-SDL_Surface *TEX_ParseLaTeX(const char *latex, SDL_bool optimize)
+SDL_Surface *TEX_ParseLaTeX(const char *latex, SDL_bool optimize, int size)
 {
 	createFolderIfNotExists(TEX_DEFAULT_GENERATION_FOLDER);
 
 	if (optimize)
-		return parseWithOptimization(latex);
+		return parseWithOptimization(latex, size);
 	
-	return parseWithoutOptimization(latex, "equation");
+	return parseWithoutOptimization(latex, "equation", size);
 }
 
 
@@ -46,10 +46,10 @@ void createFolderIfNotExists(const char *folder)
 }
 
 
-SDL_Surface *parseWithOptimization(const char *latex)
+SDL_Surface *parseWithOptimization(const char *latex, int size)
 {
 	char hash[17];
-	TEX_Hash(latex, hash);
+	TEX_Hash(latex, hash, size);
 
 	char imgFilePath[TEX_MAX_LATEX_FILE_PATH_SIZE];
 	int res = snprintf(imgFilePath, TEX_MAX_LATEX_FILE_PATH_SIZE, "%s/%s.png", TEX_DEFAULT_GENERATION_FOLDER, hash);
@@ -62,27 +62,30 @@ SDL_Surface *parseWithOptimization(const char *latex)
 	if (doesFileExists(imgFilePath))
 		return IMG_Load(imgFilePath);
 
-	return parseWithoutOptimization(latex, hash);
+	return parseWithoutOptimization(latex, hash, size);
 }
 
 
 
-SDL_Surface *parseWithoutOptimization(const char *latex, const char *filename)
+SDL_Surface *parseWithoutOptimization(const char *latex, const char *filename, int size)
 {
-	static const char *latexPreambule = "\\documentclass[preview]{standalone}\
+	static const char *latexPreambule1 = "\\documentclass[preview]{standalone}\n\
 	\\usepackage{mathrsfs}\n\
 	\\usepackage{slashed}\n\
 	\\usepackage{amsmath}\n\
 	\\usepackage{amssymb}\n\
 	\\usepackage{mathtools}\n\
 	\\usepackage{xcolor}\n\
+	\\usepackage{fix-cm}\n\
 	\n\
 	\\begin{document}\n\
+	\\fontsize{";
+	static const char *latexPreambule2 = "}{2}\\selectfont{\n\
 	\\color{white}\\[\n";
-	static const char *latexPostEquation = "\n\\]\n\\end{document}";
+	static const char *latexPostEquation = "\n\\]}\n\\end{document}";
 	char completedLatex[TEX_MAX_LATEX_FILE_SIZE];
 
-	int res = snprintf(completedLatex, TEX_MAX_LATEX_FILE_SIZE, "%s%s%s", latexPreambule, latex, latexPostEquation);
+	int res = snprintf(completedLatex, TEX_MAX_LATEX_FILE_SIZE, "%s%d%s%s%s", latexPreambule1, size, latexPreambule2, latex, latexPostEquation);
 	if (res == 0 || res > TEX_MAX_LATEX_FILE_SIZE)
 	{
 		TEX_SetError("TEX : Can't add preambule or end of file to equation");
@@ -123,7 +126,7 @@ SDL_Surface *parseWithoutOptimization(const char *latex, const char *filename)
 	}
 
 	char pdfLatexEquation[TEX_MAX_PDFLATEX_COMMAND_SIZE];
-	res = snprintf(pdfLatexEquation, TEX_MAX_PDFLATEX_COMMAND_SIZE, "pdflatex -output-directory=%s %s", TEX_DEFAULT_GENERATION_FOLDER, texFilePath);
+	res = snprintf(pdfLatexEquation, TEX_MAX_PDFLATEX_COMMAND_SIZE, "pdflatex -shell-escape -output-directory=%s %s", TEX_DEFAULT_GENERATION_FOLDER, texFilePath);
 	if (res == 0 || res > TEX_MAX_PDFLATEX_COMMAND_SIZE)
 	{
 		TEX_SetError("TEX : Can't concatenate png file path");

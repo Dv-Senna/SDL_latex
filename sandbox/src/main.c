@@ -28,12 +28,19 @@ int main(int argc, char *argv[])
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 
-	SDL_Surface *latexSurface = TEX_ParseLaTeX("E = m_0\\gamma c^2", SDL_TRUE);
+	SDL_Surface *latexSurface = TEX_ParseLaTeX("E = m_0\\gamma c^2", SDL_TRUE, 7);
 	if (latexSurface == NULL)
 		handleError();
 	SDL_Rect latexRect = {10, 20, latexSurface->w, latexSurface->h};
 	SDL_Texture *latexTexture = SDL_CreateTextureFromSurface(renderer, latexSurface);
 	SDL_FreeSurface(latexSurface);
+
+	SDL_Surface *latexSurface2 = TEX_ParseLaTeX("R_{\\mu\\nu} - \\dfrac{1}{2}Rg_{\\mu\\nu} = 0", SDL_TRUE, 11);
+	if (latexSurface2 == NULL)
+		handleError();
+	SDL_Rect latexRect2 = {50, 80, latexSurface2->w, latexSurface2->h};
+	SDL_Texture *latexTexture2 = SDL_CreateTextureFromSurface(renderer, latexSurface2);
+	SDL_FreeSurface(latexSurface2);
 
 
 	SDL_bool running = SDL_TRUE;
@@ -44,17 +51,19 @@ int main(int argc, char *argv[])
 	{
 		while (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_QUIT)
+			if (event.type == SDL_QUIT || event.type == SDL_KEYDOWN)
 				running = SDL_FALSE;
 		}
 
 		SDL_RenderClear(renderer);
 
 		SDL_RenderCopy(renderer, latexTexture, NULL, &latexRect);
+		SDL_RenderCopy(renderer, latexTexture2, NULL, &latexRect2);
 
 		SDL_RenderPresent(renderer);
 	}
 
+	SDL_DestroyTexture(latexTexture2);
 	SDL_DestroyTexture(latexTexture);
 	
 	SDL_DestroyRenderer(renderer);

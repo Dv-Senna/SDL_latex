@@ -5,14 +5,14 @@
 
 
 
-void TEX_Hash(const char *string, char *output)
+void TEX_Hash(const char *string, char *output, int size)
 {
 	int lengthOfString = strlen(string);
 	char *newString = malloc(sizeof(char) * (lengthOfString + 1));
 	newString[lengthOfString] = 0;
 
 	for (int i = 0; i < lengthOfString; i++)
-		newString[i] = string[i] % 26 + 65;
+		newString[i] = (string[i] + size) % 26 + 65;
 
 	while (1)
 	{

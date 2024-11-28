@@ -4,8 +4,8 @@ A C library that can interpret LaTeX code and transform it in a SDL_Surface
 
 ## Dependencies
 
-- SDL2
-- SDL2_image
+- SDL3
+- SDL3_image
 - ImageMagick
 
 ## Usage

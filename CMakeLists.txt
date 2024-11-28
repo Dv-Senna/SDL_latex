@@ -13,25 +13,27 @@ set(PROJECT_C_DIALECT 23)
 option(BUILD_TESTS "BUILD_TESTS" OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_subdirectory(vendors/SDL)
-add_subdirectory(vendors/SDL_image)
-if (WIN32)
-	function(CLONE_SDL_DLL target)
-		add_custom_command(
-			TARGET ${target} POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			$<TARGET_FILE:SDL2::SDL2>
-			$<TARGET_FILE_DIR:${target}>
-		)
-	endfunction()
-	function(CLONE_SDL_IMAGE_DLL target)
-		add_custom_command(
-			TARGET ${target} POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			$<TARGET_FILE:SDL2_image::SDL2_image>
-			$<TARGET_FILE_DIR:${target}>
-		)
-	endfunction()
+if (NOT DEFINED TEX_HANDLED_VENDORS)
+	add_subdirectory(vendors/SDL)
+	add_subdirectory(vendors/SDL_image)
+	if (WIN32)
+		function(CLONE_SDL_DLL target)
+			add_custom_command(
+				TARGET ${target} POST_BUILD
+				COMMAND ${CMAKE_COMMAND} -E copy_if_different
+				$<TARGET_FILE:SDL2::SDL2>
+				$<TARGET_FILE_DIR:${target}>
+			)
+		endfunction()
+		function(CLONE_SDL_IMAGE_DLL target)
+			add_custom_command(
+				TARGET ${target} POST_BUILD
+				COMMAND ${CMAKE_COMMAND} -E copy_if_different
+				$<TARGET_FILE:SDL2_image::SDL2_image>
+				$<TARGET_FILE_DIR:${target}>
+			)
+		endfunction()
+	endif()
 endif()
 
 

@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-#include <SDL2/SDL_image.h>
+#include <SDL3_image/SDL_image.h>
 
-#include "SDL2/SDL_latex.h"
-#include "SDL2/TEX_config.h"
-#include "SDL2/TEX_parser.h"
-#include "SDL2/TEX_hash.h"
+#include "SDL3_latex/SDL_latex.h"
+#include "SDL3_latex/TEX_config.h"
+#include "SDL3_latex/TEX_parser.h"
+#include "SDL3_latex/TEX_hash.h"
 
 
 SDL_Surface *parseWithOptimization(const char *latex, int size);
@@ -15,7 +15,7 @@ SDL_Surface *parseWithoutOptimization(const char *latex, const char *filename, i
 void createFolderIfNotExists(const char *folder);
 
 
-SDL_Surface *TEX_ParseLaTeX(const char *latex, SDL_bool optimize, int size)
+SDL_Surface *TEX_ParseLaTeX(const char *latex, bool optimize, int size)
 {
 	createFolderIfNotExists(TEX_DEFAULT_GENERATION_FOLDER);
 
@@ -26,14 +26,14 @@ SDL_Surface *TEX_ParseLaTeX(const char *latex, SDL_bool optimize, int size)
 }
 
 
-SDL_bool doesFileExists(const char *path)
+bool doesFileExists(const char *path)
 {
 	FILE *file = fopen(path, "r");
 	if (file == NULL)
-		return SDL_FALSE;
+		return false;
 
 	fclose(file);
-	return SDL_TRUE;
+	return true;
 }
 
 

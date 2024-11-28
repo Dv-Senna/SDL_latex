@@ -21,7 +21,7 @@ if (NOT DEFINED TEX_HANDLED_VENDORS)
 			add_custom_command(
 				TARGET ${target} POST_BUILD
 				COMMAND ${CMAKE_COMMAND} -E copy_if_different
-				$<TARGET_FILE:SDL2::SDL2>
+				$<TARGET_FILE:SDL3::SDL3>
 				$<TARGET_FILE_DIR:${target}>
 			)
 		endfunction()
@@ -29,7 +29,7 @@ if (NOT DEFINED TEX_HANDLED_VENDORS)
 			add_custom_command(
 				TARGET ${target} POST_BUILD
 				COMMAND ${CMAKE_COMMAND} -E copy_if_different
-				$<TARGET_FILE:SDL2_image::SDL2_image>
+				$<TARGET_FILE:SDL3_image::SDL3_image>
 				$<TARGET_FILE_DIR:${target}>
 			)
 		endfunction()
@@ -38,12 +38,12 @@ endif()
 
 
 set(DEPS_INCLUDE_DIRS
-	SDL2::Headers
-	SDL2_image::Headers
+	SDL3::Headers
+	SDL3_image::Headers
 )
 set(DEPS_LIBRARIES
-	SDL2::SDL2
-	SDL2_image::SDL2_image
+	SDL3::SDL3
+	SDL3_image::SDL3_image
 )
 
 add_subdirectory(lib)

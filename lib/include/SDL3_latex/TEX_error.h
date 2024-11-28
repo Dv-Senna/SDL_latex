@@ -1,7 +1,7 @@
 #ifndef SDL_LATEX_TEX_ERROR_H
 #define SDL_LATEX_TEX_ERROR_H
 
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 
 #ifdef __cplusplus

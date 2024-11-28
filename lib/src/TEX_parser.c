@@ -140,7 +140,7 @@ SDL_Surface *parseWithoutOptimization(const char *latex, const char *filename, i
 	}
 
 	char convertCommand[TEX_MAX_CONVERT_COMMAND_SIZE];
-	res = snprintf(convertCommand, TEX_MAX_CONVERT_COMMAND_SIZE, "convert -density 300 %s/%s.pdf -quality 100 %s", TEX_DEFAULT_GENERATION_FOLDER, filename, imgFilePath);
+	res = snprintf(convertCommand, TEX_MAX_CONVERT_COMMAND_SIZE, "magick convert -density 300 %s/%s.pdf -quality 100 -trim +repage %s", TEX_DEFAULT_GENERATION_FOLDER, filename, imgFilePath);
 	if (res == 0 || res > TEX_MAX_CONVERT_COMMAND_SIZE)
 	{
 		TEX_SetError("TEX : Can't concatenate png file path");

@@ -1,7 +1,7 @@
 set(CMAKE_PROJECT_MINIMUM_VERSION 3.20)
 cmake_minimum_required(VERSION 3.20)
 
-project(template
+project(SDL_latex
 	VERSION 2.0.0
 	LANGUAGES C
 )
@@ -13,7 +13,8 @@ set(PROJECT_C_DIALECT 23)
 option(BUILD_TESTS "BUILD_TESTS" OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-if (NOT DEFINED TEX_HANDLED_VENDORS)
+
+if (PROJECT_IS_TOP_LEVEL)
 	add_subdirectory(vendors/SDL)
 	add_subdirectory(vendors/SDL_image)
 	if (WIN32)

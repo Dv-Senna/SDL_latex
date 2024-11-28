@@ -51,20 +51,19 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# bat
+# scripts
 *.bat
+*.sh
 
-# makefiles
-Makefile
-*.make
+# build folder
+build/*
 
-# vendors
-vendors/*
-
-# vs code
+# IDEs
 .vscode/*
+.clangd
 
 # latex
+latex/*
 *.aux
 *.log
 *.pdf

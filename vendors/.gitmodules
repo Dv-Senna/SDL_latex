@@ -1,0 +1,2 @@
+[submodule "vendors/SDL"]
+	branch = SDL2

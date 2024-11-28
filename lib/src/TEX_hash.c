@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "TEX_hash.h"
+#include "SDL2/TEX_hash.h"
 
 
 

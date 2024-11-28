@@ -4,10 +4,10 @@
 
 #include <SDL2/SDL_image.h>
 
-#include "SDL_latex.h"
-#include "TEX_config.h"
-#include "TEX_parser.h"
-#include "TEX_hash.h"
+#include "SDL2/SDL_latex.h"
+#include "SDL2/TEX_config.h"
+#include "SDL2/TEX_parser.h"
+#include "SDL2/TEX_hash.h"
 
 
 SDL_Surface *parseWithOptimization(const char *latex, int size);
@@ -41,8 +41,13 @@ void createFolderIfNotExists(const char *folder)
 {
 	struct stat st = {0};
 
-	if (stat(folder, &st) == -1)
+	if (stat(folder, &st) == -1) {
+	#ifdef TEX_WINDOWS
 		mkdir(folder);
+	#elif TEX_LINUX
+		mkdir(folder, S_IRWXU | S_IRGRP);
+	#endif
+	}
 }
 
 
